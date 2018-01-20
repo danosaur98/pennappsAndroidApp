@@ -20,62 +20,64 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextView;
     private ListView mListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ArrayList<String> nameArray = new ArrayList<>();
-        nameArray.add("one");
-        nameArray.add("one");
-        nameArray.add("one");
-        nameArray.add("one");
-        nameArray.add("one");
-        nameArray.add("one");
-        nameArray.add("one");
-        nameArray.add("one");
-        nameArray.add("one");
-        nameArray.add("one");
+        final ArrayList<String> nameArray = new ArrayList<>();
 
-        ArrayList<String> amountArray = new ArrayList<>();
-        amountArray.add("1");
-        amountArray.add("1");
-        amountArray.add("1");
-        amountArray.add("1");
-        amountArray.add("1");
-        amountArray.add("1");
-        amountArray.add("1");
-        amountArray.add("1");
-        amountArray.add("1");
-        amountArray.add("1");
+        final ArrayList<String> amountArray = new ArrayList<>();
 
-        ArrayList<String> charityArray = new ArrayList<>();
-        charityArray.add("UNICEF");
-        charityArray.add("UNICEF");
-        charityArray.add("UNICEF");
-        charityArray.add("UNICEF");
-        charityArray.add("UNICEF");
-        charityArray.add("UNICEF");
-        charityArray.add("UNICEF");
-        charityArray.add("UNICEF");
-        charityArray.add("UNICEF");
-        charityArray.add("UNICEF");
+        final ArrayList<String> charityArray = new ArrayList<>();
 
-        ArrayList<String> endDateArray = new ArrayList<>();
-        endDateArray.add("1/20/18 5:32:00PM");
-        endDateArray.add("1/20/18 5:32:00PM");
-        endDateArray.add("1/20/18 5:32:00PM");
-        endDateArray.add("1/20/18 5:32:00PM");
-        endDateArray.add("1/20/18 5:32:00PM");
-        endDateArray.add("1/20/18 5:32:00PM");
-        endDateArray.add("1/20/18 5:32:00PM");
-        endDateArray.add("1/20/18 5:32:00PM");
-        endDateArray.add("1/20/18 5:32:00PM");
-        endDateArray.add("1/20/18 5:32:00PM");
+        final ArrayList<String> endDateArray = new ArrayList<>();
 
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+
+                Request request = new Request.Builder()
+                        .url("https://whispering-scrubland-39491.herokuapp.com/getLotteries")
+                        .get()
+                        .addHeader("cache-control", "no-cache")
+                        .addHeader("postman-token", "3b2bb3c0-413b-c395-cb6b-2a4ab64c3570")
+                        .build();
+
+                try {
+                    Response response = client.newCall(request).execute();
+                    String jsonData = response.body().string();
+                    JSONObject Jobject = null;
+                    int timer = 30;
+                    try {
+                        Jobject = new JSONObject(jsonData);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    JSONArray Jarray = Jobject.getJSONArray("result");
+                    for (int i = 0; i < Jarray.length(); i++) {
+                        JSONObject lottery = Jarray.getJSONObject(i);
+                        nameArray.add(lottery.getString("title"));
+                        amountArray.add(lottery.getString("amount"));
+                        charityArray.add(lottery.getString("charity"));
+                        endDateArray.add(lottery.getString("endDate"));
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }});
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         CustomListAdapter whatever = new CustomListAdapter(this, nameArray, amountArray, charityArray, endDateArray);
