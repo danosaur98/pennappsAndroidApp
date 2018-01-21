@@ -35,13 +35,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final ArrayList<String> nameArray = new ArrayList<>();
-
+        nameArray.add("hi");
         final ArrayList<String> amountArray = new ArrayList<>();
-
+        amountArray.add("10");
         final ArrayList<String> charityArray = new ArrayList<>();
-
+        charityArray.add("UNICEF");
         final ArrayList<String> endDateArray = new ArrayList<>();
-
+        endDateArray.add("today");
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -51,14 +51,12 @@ public class MainActivity extends AppCompatActivity {
                         .url("https://whispering-scrubland-39491.herokuapp.com/getLotteries")
                         .get()
                         .addHeader("cache-control", "no-cache")
-                        .addHeader("postman-token", "3b2bb3c0-413b-c395-cb6b-2a4ab64c3570")
+                        .addHeader("postman-token", "b866a099-64e6-4978-07e7-ce2304ab4b0d")
                         .build();
-
                 try {
                     Response response = client.newCall(request).execute();
                     String jsonData = response.body().string();
                     JSONObject Jobject = null;
-                    int timer = 30;
                     try {
                         Jobject = new JSONObject(jsonData);
                     } catch (JSONException e) {
@@ -68,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < Jarray.length(); i++) {
                         JSONObject lottery = Jarray.getJSONObject(i);
                         nameArray.add(lottery.getString("title"));
-                        amountArray.add(lottery.getString("amount"));
+                        amountArray.add(lottery.getString("total"));
                         charityArray.add(lottery.getString("charity"));
                         endDateArray.add(lottery.getString("endDate"));
                     }
