@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PennApps.iml" filepath="$PROJECT_DIR$/PennApps.iml" />
+      <module fileurl="file://C:\Users\guanr\AndroidProjects\pennappsAndroidApp\PennApps.iml" filepath="C:\Users\guanr\AndroidProjects\pennappsAndroidApp\PennApps.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\guanr\AndroidProjects\pennappsAndroidApp\app\app.iml" filepath="C:\Users\guanr\AndroidProjects\pennappsAndroidApp\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pennappsAndroidApp.iml" filepath="$PROJECT_DIR$/pennappsAndroidApp.iml" />
     </modules>
   </component>
 </project>

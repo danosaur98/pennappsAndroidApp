@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.squareup.okhttp.MediaType;
@@ -27,23 +28,31 @@ public class LotteryDetail extends AppCompatActivity {
     private TextView endDate;
     private TextView currentContributions;
     private EditText yourContributions;
+    private ListView mListView;
     private String participantID = "5a563d1c5eaa612c093b0b20";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String[] nameArray = {"Ryan", "Daniel", "Ryann", "Danielle"};
+        String[] betArray = {"12", "11.11", "0.15", "15.00"};
         setContentView(R.layout.activity_lottery_detail);
+        ListPlayersAdapter adapter = new ListPlayersAdapter(this, nameArray, betArray);
         mButton = findViewById(R.id.joinLottery);
         name = findViewById(R.id.joinLotteryName);
         charity = findViewById(R.id.joinCharityName);
         endDate = findViewById(R.id.joinEndDate);
         currentContributions = findViewById(R.id.joinCurrentValue);
         yourContributions = findViewById(R.id.joinYourContribution);
+        mListView = (ListView) findViewById(R.id.listViewTwoId);
+
+        mListView.setAdapter(adapter);
         name.setText("Name: " + getIntent().getStringExtra("name"));
         currentContributions.setText("Current Amount: $" + getIntent().getStringExtra("amount"));
         charity.setText("Charity: " + getIntent().getStringExtra("charity"));
         endDate.setText("End Date: " + getIntent().getStringExtra("endDate"));
+        adapter.notifyDataSetChanged();
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
