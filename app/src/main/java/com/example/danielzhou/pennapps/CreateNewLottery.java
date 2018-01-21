@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
@@ -39,6 +40,7 @@ public class CreateNewLottery extends AppCompatActivity {
         charity = findViewById(R.id.charityName);
         tp = findViewById(R.id.timePicker);
         mButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
                 AsyncTask.execute(new Runnable() {
@@ -75,8 +77,15 @@ public class CreateNewLottery extends AppCompatActivity {
                     }
                 });
 
+
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(i);
+
+                i.putExtra("hours", Integer.toString(tp.getHour()));
+                i.putExtra("minutes", Integer.toString(tp.getMinute()));
+                i.putExtra("title", name.getText().toString());
+                setResult(1,i);
+                Toast.makeText(getApplicationContext(), "Timer Set", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }

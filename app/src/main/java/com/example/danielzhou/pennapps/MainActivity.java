@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     final ArrayList<String> charityArray = new ArrayList<>();
     final ArrayList<String> endDateArray = new ArrayList<>();
     final ArrayList<String> lotteryIDArray = new ArrayList<>();
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 Intent i = new Intent(getApplicationContext(), CreateNewLottery.class);
-                startActivity(i);
+                startActivityForResult(i, 1);
             }
         });
         mCustomListAdapter.notifyDataSetChanged();
@@ -210,5 +213,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        final String input = data.getStringExtra("title") + " has ran out of time!";
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), input ,
+                        Toast.LENGTH_LONG).show();
+            }
+        };
+        handler.postDelayed(runnable, 2000);
     }
 }
