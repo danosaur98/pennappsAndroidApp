@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -65,14 +66,32 @@ public class MainActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    JSONArray Jarray = Jobject.getJSONArray("result");
-                    for (int i = 0; i < Jarray.length(); i++) {
-                        JSONObject lottery = Jarray.getJSONObject(i);
-                        nameArray.add(lottery.getString("title"));
-                        amountArray.add(lottery.getString("total"));
-                        charityArray.add(lottery.getString("charity"));
-                        endDateArray.add(lottery.getString("endDate"));
-                    }
+                    final JSONArray Jarray = Jobject.getJSONArray("result");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for (int i = 0; i < Jarray.length(); i++) {
+                                JSONObject lottery = null;
+                                try {
+                                    lottery = Jarray.getJSONObject(i);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    nameArray.add(lottery.getString("title"));
+                                    amountArray.add(lottery.getString("total"));
+                                    charityArray.add(lottery.getString("charity"));
+                                    endDateArray.add(lottery.getString("endDate"));
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                whatever.notifyDataSetChanged();
+
+                            }
+                        }
+                    });
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
@@ -95,6 +114,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         whatever.notifyDataSetChanged();
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Intent intent = new Intent(MainActivity.this, LotteryDetail.class);
+                intent.putExtra("name", nameArray.get(position));
+                intent.putExtra("amount", amountArray.get(position));
+                intent.putExtra("charity", charityArray.get(position));
+                intent.putExtra("endDate", endDateArray.get(position));
+                startActivity(intent);
+            }
+        });
     }
     @Override
     protected void onResume() {

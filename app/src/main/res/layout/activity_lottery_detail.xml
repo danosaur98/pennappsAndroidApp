@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.danielzhou.pennapps.CreateNewLottery">
-    <EditText
-        android:id="@+id/lotteryName"
+    tools:context="com.example.danielzhou.pennapps.LotteryDetail">
+    <TextView
+        android:id="@+id/joinLotteryName"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:hint="Lottery Name"
+        android:text="Name"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -17,11 +18,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.034" />
 
-    <EditText
-        android:id="@+id/charityName"
+    <TextView
+        android:id="@+id/joinCurrentValue"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:hint="Charity"
+        android:text="Current Contributions"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.189"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.253" />
+
+    <TextView
+        android:id="@+id/joinCharityName"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="Charity"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -29,11 +44,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.143" />
 
+    <TextView
+        android:id="@+id/joinEndDate"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="End TIme"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.189"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.372" />
+
     <Button
-        android:id="@+id/CreateLottery"
+        android:id="@+id/joinLottery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Lottery"
+        android:text="Join Lottery"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.991"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -41,19 +69,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.965" />
 
-    <TimePicker
-        android:id="@+id/timePicker"
-        android:layout_width="330dp"
-        android:layout_height="376dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.197"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.751" />
-
     <EditText
-        android:id="@+id/total"
+        android:id="@+id/joinYourContribution"
         android:layout_width="299dp"
         android:layout_height="56dp"
         android:ems="10"
@@ -64,7 +81,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.253" />
-
+        app:layout_constraintVertical_bias="0.851" />
 
 </android.support.constraint.ConstraintLayout>
