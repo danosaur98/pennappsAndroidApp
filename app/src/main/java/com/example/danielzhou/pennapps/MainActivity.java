@@ -40,12 +40,9 @@ public class MainActivity extends AppCompatActivity {
     final ArrayList<String> amountArray = new ArrayList<>();
     final ArrayList<String> charityArray = new ArrayList<>();
     final ArrayList<String> endDateArray = new ArrayList<>();
+    final ArrayList<String> lotteryIDArray = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        nameArray.add("bro");
-        amountArray.add("bro");
-        charityArray.add("bro");
-        endDateArray.add("bro");
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -82,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                                     amountArray.add(lottery.getString("total"));
                                     charityArray.add(lottery.getString("charity"));
                                     endDateArray.add(lottery.getString("endDate"));
-
+                                    lotteryIDArray.add(lottery.getString("lotteryID"));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -123,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("amount", amountArray.get(position));
                 intent.putExtra("charity", charityArray.get(position));
                 intent.putExtra("endDate", endDateArray.get(position));
+                intent.putExtra("lotteryID", lotteryIDArray.get(position));
                 startActivity(intent);
             }
         });
