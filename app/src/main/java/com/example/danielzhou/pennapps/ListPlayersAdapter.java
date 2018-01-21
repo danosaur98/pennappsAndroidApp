@@ -43,8 +43,7 @@ public class ListPlayersAdapter extends ArrayAdapter {
         nameTextField.setText(nameArray[position]);
         betAmountTextField.setText("$" + betArray[position]);
         int percentage = (int) Math.ceil(100 * (Double.parseDouble(betArray[position])/ totalBet));
-        percentageWinTextField.setText(Integer.toString(percentage) + "%");
+        percentageWinTextField.setText("odds: " + Integer.toString(percentage) + "%");
         return rowView;
-
     }
 }
