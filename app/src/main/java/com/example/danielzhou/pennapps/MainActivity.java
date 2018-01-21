@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mTextView = findViewById(R.id.bankAccount);
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -168,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
                                             e.printStackTrace();
                                         }
                                         mCustomListAdapter.notifyDataSetChanged();
-
                                     }
                                 }
                             });
@@ -188,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         mCustomListAdapter.notifyDataSetChanged();
-
     }
 
     @Override
