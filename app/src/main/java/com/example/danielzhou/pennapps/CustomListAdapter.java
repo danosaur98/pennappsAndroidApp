@@ -51,9 +51,9 @@ public class CustomListAdapter extends ArrayAdapter {
 
         //this code sets the values of the objects to values from the arrays
         name.setText(nameArray.get(position));
-        amount.setText(amountArray.get(position));
+        amount.setText("$" + amountArray.get(position));
         charity.setText(charityArray.get(position));
-        endDate.setText(endDateArray.get(position));
+        endDate.setText("Expires at: " + endDateArray.get(position));
 
         return rowView;
 

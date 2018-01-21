@@ -41,7 +41,7 @@ public class LotteryDetail extends AppCompatActivity {
         currentContributions = findViewById(R.id.joinCurrentValue);
         yourContributions = findViewById(R.id.joinYourContribution);
         name.setText("Name: " + getIntent().getStringExtra("name"));
-        currentContributions.setText("Current Amount: " + getIntent().getStringExtra("amount"));
+        currentContributions.setText("Current Amount: $" + getIntent().getStringExtra("amount"));
         charity.setText("Charity: " + getIntent().getStringExtra("charity"));
         endDate.setText("End Date: " + getIntent().getStringExtra("endDate"));
         mButton.setOnClickListener(new View.OnClickListener() {

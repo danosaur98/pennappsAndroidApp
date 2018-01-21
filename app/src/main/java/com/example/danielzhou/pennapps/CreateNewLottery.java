@@ -56,7 +56,7 @@ public class CreateNewLottery extends AppCompatActivity {
                                 .appendQueryParameter("name", name.getText().toString())
                                 .appendQueryParameter("total", total.getText().toString())
                                 .appendQueryParameter("participantID", participantID)
-                                .appendQueryParameter("endDate",  tp.getHour() + ":" + tp.getMinute())
+                                .appendQueryParameter("endDate", fixDigits(Integer.toString(tp.getHour())) + ":" + fixDigits(Integer.toString(tp.getMinute())))
                                 .appendQueryParameter("charity", charity.getText().toString());
                         String myUrl = builder.build().toString();
                         Request request = new Request.Builder()
@@ -75,9 +75,16 @@ public class CreateNewLottery extends AppCompatActivity {
                     }
                 });
 
-                Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
             }
         });
+    }
+
+    private static String fixDigits(String str) {
+        if (str.length() == 1) {
+            return "0" + str;
+        }
+        return str;
     }
 }
