@@ -1,5 +1,6 @@
 package com.example.danielzhou.pennapps;
 
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 
 import android.os.AsyncTask;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,16 +34,17 @@ import java.util.TreeMap;
 public class MainActivity extends AppCompatActivity {
     private TextView mTextView;
     private ListView mListView;
+    private CustomListAdapter whatever;
+    final ArrayList<String> nameArray = new ArrayList<>();
+    final ArrayList<String> amountArray = new ArrayList<>();
+    final ArrayList<String> charityArray = new ArrayList<>();
+    final ArrayList<String> endDateArray = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final ArrayList<String> nameArray = new ArrayList<>();
-        nameArray.add("hi");
-        final ArrayList<String> amountArray = new ArrayList<>();
-        amountArray.add("10");
-        final ArrayList<String> charityArray = new ArrayList<>();
-        charityArray.add("UNICEF");
-        final ArrayList<String> endDateArray = new ArrayList<>();
-        endDateArray.add("today");
+        nameArray.add("bro");
+        amountArray.add("bro");
+        charityArray.add("bro");
+        endDateArray.add("bro");
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -78,46 +81,27 @@ public class MainActivity extends AppCompatActivity {
             }});
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        CustomListAdapter whatever = new CustomListAdapter(this, nameArray, amountArray, charityArray, endDateArray);
+        mTextView = findViewById(R.id.textView);
+        whatever = new CustomListAdapter(this, nameArray, amountArray, charityArray, endDateArray);
         mListView = (ListView) findViewById(R.id.listviewID);
         mListView.setAdapter(whatever);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        mTextView = findViewById(R.id.textView);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        OkHttpClient client = new OkHttpClient();
-
-                        MediaType mediaType = MediaType.parse("multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW");
-                        RequestBody body = RequestBody.create(mediaType, "------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"empty\"\r\n\r\nempty\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--");
-                        Request request = new Request.Builder()
-                                .url("https://whispering-scrubland-39491.herokuapp.com/addLottery?name=test5&amount=5&participantID=5a563d1c5eaa612c093b0b20")
-                                .post(body)
-                                .addHeader("content-type", "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW")
-                                .addHeader("cache-control", "no-cache")
-                                .addHeader("postman-token", "47f8c6c1-953d-b20c-42ec-9c8a2e5ce9f3")
-                                .build();
-
-                        try {
-                            Response response = client.newCall(request).execute();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                mTextView.setText("rekt");
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        Button newLottery = (Button) findViewById(R.id.button);
+        newLottery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    Intent i = new Intent(getApplicationContext(),CreateNewLottery.class);
+                    startActivity(i);
+                }
+            });
+        whatever.notifyDataSetChanged();
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        whatever.notifyDataSetChanged();
 
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
